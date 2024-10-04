@@ -43,4 +43,4 @@ ISROOT
 
 dnf install nginx -y
 
-VALIDATE_INSTALL
+VALIDATE_INSTALL $0 "nginix installation"
