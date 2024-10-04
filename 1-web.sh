@@ -7,6 +7,7 @@ set -x
 # echo "Quoted Values: $@"
 # echo "Quoted Values: $*"
 # echo "Total Number of Parameters : $#"
+# echo "Exit status of last command : $?"
 
 ID=$(id -u)
 R="\e[31m"
@@ -28,7 +29,7 @@ ISROOT() {
     fi
 }
 # The following function checks validations
-VALIDATE_INSTALL() {
+VALIDATE() {
     if [ $1 -eq 0 ]; then
         echo -e " $2 is success "
     else
@@ -43,4 +44,11 @@ ISROOT
 
 dnf install nginx -y
 
-VALIDATE_INSTALL $0 "nginix installation"
+VALIDATE $? "nginx installation"
+
+# Start & Enable Nginx service
+
+systemctl enable nginx
+systemctl start nginx
+
+VALIDATE $? "nginx starting"
