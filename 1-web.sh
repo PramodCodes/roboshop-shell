@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # echo "File Name: $0"
 # echo "First Parameter : $1"
@@ -17,7 +18,6 @@ TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
 
 # check root user
-set -x
 
 ISROOT() {
     echo "checking if current user is root user"
@@ -27,3 +27,5 @@ ISROOT() {
         echo -e "$R[FAIL] Current user is not root user$N"
     fi
 }
+
+ISROOT
