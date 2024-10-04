@@ -27,5 +27,20 @@ ISROOT() {
         echo -e "$R[FAIL] Current user is not root user$N"
     fi
 }
+# The following function checks validations
+VALIDATE_INSTALL() {
+    if [ $1 -eq 0 ]; then
+        echo -e " $2 is success "
+    else
+        echo -e " $2 is failed "
+        exit 1
+    fi
+}
 
 ISROOT
+
+# install nginx
+
+dnf install nginx -y
+
+VALIDATE_INSTALL
