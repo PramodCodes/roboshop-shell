@@ -73,5 +73,12 @@ unzip /tmp/web.zip
 VALIDATE $? "extraction of frontend Content"
 
 # Create Nginx Reverse Proxy Configuration.
-echo "Creating reverse proxy configuration
-echo " $G current path is " pwd $N
+echo "Creating reverse proxy configuration"
+
+cp /configuration/roboshop.conf /etc/nginx/default.d/roboshop.conf
+VALIDATE $? "Copying roboshop.conf file"
+
+# Restart Nginx Service to load the changes of the configuration.
+systemctl restart nginx
+
+echo -e "$G[SUCCESS] Nginx has been successfully configured and restarted$N"
