@@ -80,8 +80,10 @@ VALIDATE $? "systemctl enable catalogue"
 systemctl start catalogue
 VALIDATE $? "systemctl start catalogue"
 pwd
-echo -e "$Y we were trying to copy mongo repo from  /configuration/mongo.repo to /etc/yum.repos.d/mongo.repo changing this to absolute path"
-cp root/roboshop-shell/configuration/mongo.repo /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
+ls -ltr
+roboshop-shell
+echo -e "$Y we were trying to copy mongo repo from  /configuration/mongo.repo to /etc/yum.repos.d/mongo.repo changing this to absolute path $N"
+cp /root/roboshop-shell/configuration/mongo.repo /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
 VALIDATE $? "copying mongo repo"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
