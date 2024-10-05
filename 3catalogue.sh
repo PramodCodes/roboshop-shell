@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -x # will stop exec on failure
 set -e
 ID=$(id -u)
 R="\e[31m"
@@ -67,7 +67,8 @@ VALIDATE $? "npm install"
 
 # use absolute, because catalogue.service exists there
 # cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
-cp /root/roboshop-shell/configuration/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
+cp /root/roboshop-shell/configuration/catalogue.service /etc/systemd/system/catalogue.service &>> "$LOGFILE"
+VALIDATE $? "catalogue service copying"
 
 systemctl daemon-reload
 VALIDATE $? "systemctl daemon-reload"
