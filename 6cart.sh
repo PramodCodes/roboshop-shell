@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #color codes for formatting logs
-G = "\e[32m"
-R = "\e[31m"
-Y = "\e[33m"
-N = "\e[0m"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 # enabling debugging
 set -x
