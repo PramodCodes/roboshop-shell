@@ -52,3 +52,26 @@ systemctl enable nginx
 systemctl start nginx
 
 VALIDATE $? "nginx starting"
+
+# Remove the default content that web server is serving.
+
+rm -rf /usr/share/nginx/html/*
+
+VALIDATE $? "default content removal"
+
+# Download the frontend content
+
+curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip
+
+VALIDATE $? "frontend content download"
+
+# Extract the frontend content.
+cd /usr/share/nginx/html
+VALIDATE $? "navigation to html Content"
+
+unzip /tmp/web.zip
+VALIDATE $? "extraction of frontend Content"
+
+# Create Nginx Reverse Proxy Configuration.
+echo "Creating reverse proxy configuration
+echo " $G current path is " pwd $N
