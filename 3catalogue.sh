@@ -15,11 +15,11 @@ MONGDB_HOST=mongodb.pka.in.net
 # CURRENT_DATE = date +"%Y-%m-%d_%H:%M:%S"
 # LOGFILE = /tmp/$CURRENT_FILE_NAME-$CURRENT_DATE.log #filename timestamp logfile
 
-echo "started execution at $CURRENT_DATE" &>>$LOGFILE
+echo "started execution at $CURRENT_DATE" &>> "$LOGFILE"
 
 VALIDATE() {
     if [ $1 -ne 0 ]; then
-        echo "log path $LOGFILE" &>>$LOGFILE
+        echo "log path $LOGFILE" &>> "$LOGFILE"
         echo -e "$2 ... $R FAILED $N"
         exit 1
     else
@@ -34,12 +34,12 @@ else
     echo "You are root user"
 fi # fi means reverse of if, indicating condition end
 
-dnf module disable nodejs -y &>>$LOGFILE
-dnf module enable nodejs:18 -y &>>$LOGFILE
+dnf module disable nodejs -y &>> "$LOGFILE"
+dnf module enable nodejs:18 -y &>> "$LOGFILE"
 
-dnf install nodejs -y &>>$LOGFILE
+dnf install nodejs -y &>> "$LOGFILE"
 
-id roboshop &>>$LOGFILE
+id roboshop &>> "$LOGFILE"
 if [ $? -ne 0 ]; then
     useradd roboshop
     VALIDATE $? "roboshop user creation"
@@ -47,22 +47,22 @@ else
     echo -e "roboshop user already exist $Y SKIPPING $N"
 fi
 
-mkdir -p /app &>>$LOGFILE
+mkdir -p /app &>> "$LOGFILE"
 VALIDATE $? "directory creation"
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>>$LOGFILE
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> "$LOGFILE"
 VALIDATE $? "downloading catalogue"
 
-cd /app &>>$LOGFILE
+cd /app &>> "$LOGFILE"
 VALIDATE $? "cd to app"
 
-unzip -o /tmp/catalogue.zip &>>$LOGFILE # -o
+unzip -o /tmp/catalogue.zip &>> "$LOGFILE" # -o
 VALIDATE $? "unzip catalogue"
 
 # cd /app &>> $LOGFILE
 # VALIDATE $? "cd to app"
 
-npm install &>>$LOGFILE
+npm install &>> "$LOGFILE"
 VALIDATE $? "npm install"
 
 # use absolute, because catalogue.service exists there
@@ -79,13 +79,13 @@ VALIDATE $? "systemctl enable catalogue"
 systemctl start catalogue
 VALIDATE $? "systemctl start catalogue"
 
-cp /root/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
+cp /configuration/mongo.repo /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
 VALIDATE $? "copying mongo repo"
 
-dnf install mongodb-org-shell -y &>>$LOGFILE
+dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "mongodb-org-shell installation"
 
-mongo --host $MONGDB_HOST </app/schema/catalogue.js &>>$LOGFILE
+mongo --host $MONGDB_HOST </app/schema/catalogue.js &>> "$LOGFILE"
 VALIDATE $? "Loading catalouge data into MongoDB"
 
 echo -e "$G Catalogue Application installed successfully $N"
