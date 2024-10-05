@@ -24,4 +24,76 @@ ISROOT() {
     fi
 }
 
+VALIDATE() {
+    if [ $1 -eq 0 ]; then
+        echo -e "$G $2 is success$N"
+    else
+        echo -e "$R $2 is failed $N"
+        exit 1
+    fi
+}
+
 ISROOT
+
+# Install NodeJS, By default NodeJS 10 is available, We would like to enable 18 version and install list.
+# you can list modules by using dnf module list
+dnf module disable nodejs -y
+VALIDATE $? "Disabling current NodeJS"
+
+dnf module enable nodejs:18 -y
+VALIDATE $? "Enabling NodeJS:18"
+
+Install NodeJS
+VALIDATE $? "Installing NodeJS:18"
+
+dnf install nodejs -y
+VALIDATE $? "Installing NodeJS"
+
+# Configure the application.
+# Add application User
+
+useradd roboshop
+VALIDATE $? "roboshop user creation"
+
+# Lets setup an app directory.
+mkdir /app
+VALIDATE $? "app directory creation"
+
+# Download the application code to created app directory.
+curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip
+VALIDATE $? "Downloading cart application"
+
+cd /app
+VALIDATE $? "Naviagting into app directory"
+
+unzip /tmp/cart.zip
+VALIDATE $? "unzipping cart"
+
+# Every application is developed by development team will have some common softwares that they use as libraries. This application also have the same way of defined dependencies in the application configuration.
+# Lets download the dependencies.
+
+cd /app
+VALIDATE $? "Naviagting into app directory"
+
+npm install
+VALIDATE $? "Installing dependencies"
+
+# We need to setup a new service in systemd so systemctl can manage this service
+# Setup SystemD Cart Service
+# since below command wont work with automation i will copy file from configuration dir
+# vim /etc/systemd/system/cart.service
+
+# Load the service.
+cp /configuration/cart.service /etc/systemd/system/cart.service
+VALIDATE $? "Copying cart service file"
+
+systemctl daemon-reload
+VALIDATE $? "cart daemon reload"
+
+systemctl enable cart
+VALIDATE $? "Enable cart"
+
+systemctl start cart
+VALIDATE $? "Starting cart"
+
+echo -e "$G Cart Application installed successfully $N"
