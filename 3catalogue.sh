@@ -19,6 +19,7 @@ echo "started execution at $CURRENT_DATE" &>> "$LOGFILE"
 
 VALIDATE() {
     if [ $1 -ne 0 ]; then
+        pwd
         echo "log path $LOGFILE" &>> "$LOGFILE"
         echo -e "$2 ... $R FAILED $N"
         exit 1
@@ -78,8 +79,9 @@ VALIDATE $? "systemctl enable catalogue"
 
 systemctl start catalogue
 VALIDATE $? "systemctl start catalogue"
-
-cp /configuration/mongo.repo /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
+pwd
+echo -e "$Y we were trying to copy mongo repo from  /configuration/mongo.repo to /etc/yum.repos.d/mongo.repo changing this to absolute path"
+cp root/roboshop-shell/configuration/mongo.repo /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
 VALIDATE $? "copying mongo repo"
 
 dnf install mongodb-org-shell -y &>> $LOGFILE
