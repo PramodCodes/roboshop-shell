@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# get current user id
+ID=$(id -u)
+
 #color codes for formatting logs
 R="\e[31m"
 G="\e[32m"
