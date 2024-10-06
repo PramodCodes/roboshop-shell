@@ -99,3 +99,69 @@ In this case, the script will check if the literal string `"*"` is equal to `0`,
 
 ### Best Practice:
 It is generally recommended to **always quote variables** in shell scripting, especially when performing comparisons or when the value could be empty or contain special characters. Therefore, `if [ "$ID" -eq 0 ]` is safer and more reliable than `if [ $ID -eq 0 ]`.
+
+
+set -x # command tracing
+set -e #  exit on error
+
+set useful parameters
+
+I'd be glad to provide a comprehensive response to the prompt "set useful arguments":
+
+set command in Bash:
+
+The set command in Bash is a versatile tool that allows you to manipulate the shell environment, including setting variables, positional parameters, and options. Here are some of its most useful arguments:
+
+1. Setting Variables:
+
+set variable=value: Assigns a value to the specified variable.
+set "variable=value": Assigns a value to the variable even if it contains spaces.
+set -x: Enables command tracing, printing each command and its arguments before execution.
+set +x: Disables command tracing.
+set -e: Exits the script if a command returns a non-zero exit status.
+set +e: Disables exit on error.
+set -o pipefail: Sets the pipefail option, causing the pipeline to fail if any command in the pipeline fails.
+set +o pipefail: Disables the pipefail option.
+2. Manipulating Positional Parameters:
+
+set "$@": Resets the positional parameters to the original arguments passed to the script.
+set "$@": Resets the positional parameters to the original arguments, preserving quotes.
+set --: Marks the end of positional parameters, allowing subsequent arguments to be treated as options.
+3. Setting Shell Options:
+
+set -o option: Sets the specified shell option.
+set +o option: Unsets the specified shell option.
+4. Printing Environment Variables:
+
+set without arguments: Prints a list of all environment variables and their values.
+Examples:
+
+Bash
+# Set a variable
+set MY_VARIABLE="Hello, world!"
+
+# Print the value of the variable
+echo "$MY_VARIABLE"
+
+# Enable command tracing
+set -x
+
+# Execute a command
+echo "This command will be traced"
+
+# Disable command tracing
+set +x
+
+# Reset positional parameters
+set "$@"
+
+# Print positional parameters
+echo "$@"
+Use code with caution.
+
+Additional Notes:
+
+The set command is a powerful tool for customizing the shell environment and controlling script behavior.
+It's important to use the set command carefully, as it can have significant effects on your script's execution.
+For more advanced usage, refer to the Bash manual or online resources.
+By understanding and effectively using the set command, you can enhance the flexibility and control of your Bash scripts.

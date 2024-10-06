@@ -1,6 +1,6 @@
 #!/bin/bash
-set -x # will stop exec on failure
-set -e
+set -x # command tracing
+set -e # stops execution on command failure
 ID=$(id -u)
 R="\e[31m"
 G="\e[32m"
