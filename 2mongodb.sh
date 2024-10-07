@@ -67,4 +67,4 @@ VALIDATE $? "Restarting MongoDB"
 
 echo "finished execution at $CURRENT_DATE" &>>$LOGFILE
 
-echo "MongoDB installed and configured successfully"
+echo "$Y MongoDB installed and configured successfully $N"

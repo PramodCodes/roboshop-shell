@@ -75,7 +75,7 @@ VALIDATE $? "build go app"
 
 #Setup SystemD Dispatch Service
 
-{cp /root/roboshop-shell/configuration/dispatch.service /etc/systemd/system/dispatch.service; } &>> "$LOGFILE"
+{ cp /root/roboshop-shell/configuration/dispatch.service /etc/systemd/system/dispatch.service; } &>> "$LOGFILE"
 VALIDATE $? "creation of dispatch service"
 
 #Load the service.
@@ -88,3 +88,4 @@ systemctl enable dispatch &>> "$LOGFILE"
 VALIDATE $? "enable dispatch "
 systemctl start dispatch &>> "$LOGFILE"
 VALIDATE $? "start dispatch "
+echo -e "$Y dispatch Application installed successfully $N"

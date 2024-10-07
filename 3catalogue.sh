@@ -18,7 +18,7 @@ MONGDB_HOST=mongodb.pka.in.net
 echo "started execution at $CURRENT_DATE" &>> "$LOGFILE"
 
 VALIDATE() {
-    if [ $1 -ne 0 ]; then
+    if [ "$1" -ne 0 ]; then
         pwd
         echo "log path $LOGFILE" &>> "$LOGFILE"
         echo -e "$2 ... $R FAILED $N"
@@ -28,7 +28,7 @@ VALIDATE() {
     fi
 }
 #check root access
-if [ $ID -ne 0 ]; then
+if [ "$ID" -ne 0 ]; then
     echo -e "$R ERROR:: Please run this script with root access $N"
     exit 1 # you can give other than 0
 else
@@ -85,7 +85,7 @@ echo -e "$Y we were trying to copy mongo repo from  /configuration/mongo.repo to
 cp /root/roboshop-shell/configuration/mongo.repo /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
 VALIDATE $? "copying mongo repo"
 
-dnf install mongodb-org-shell -y &>> $LOGFILE
+dnf install mongodb-org-shell -y &>> "$LOGFILE"
 VALIDATE $? "mongodb-org-shell installation"
 
 mongo --host $MONGDB_HOST </app/schema/catalogue.js &>> "$LOGFILE"

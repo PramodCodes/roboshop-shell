@@ -32,15 +32,15 @@ VALIDATE(){
     fi
 }
 ISROOT
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> "$LOGFILE"
 VALIDATE $? "installation of remi"
 #Enable Redis 6.2 from package streams.
 
-dnf module enable redis:remi-6.2 -y
+dnf module enable redis:remi-6.2 -y &>> "$LOGFILE"
 VALIDATE $? "enabling redis"
 
 #Install Redis
-dnf install redis -y
+dnf install redis -y &>> "$LOGFILE"
 VALIDATE $? "Installing redis"
 #Usually Redis opens the port only to localhost(127.0.0.1), meaning this service can be accessed by the application that is hosted on this server only. However, we need to access this service to be accessed by another server, So we need to change the config accordingly.
 #Update listen address from 127.0.0.1 to 0.0.0.0 in /etc/redis.conf & /etc/redis/redis.conf
@@ -52,9 +52,9 @@ VALIDATE $? "pointing the /etc/redis/redis.conf  to internet"
 #vim /etc/redis.conf
 #Start & Enable Redis Service
 
-systemctl enable redis
+systemctl enable redis &>> "$LOGFILE"
 VALIDATE $? "enabling redis"
-systemctl start redis
+systemctl start redis &>> "$LOGFILE"
 VALIDATE $? "Started redis"
 
-echo -e "$G configuration of redis is success $N"
+echo -e "$Y configuration of redis is success $N"

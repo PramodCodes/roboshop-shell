@@ -64,7 +64,7 @@ npm install &>> "$LOGFILE"
 #Setup SystemD User Service
 #vim /etc/systemd/system/user.service
 
-cp configuration/user.service /etc/systemd/system/user.service &>> "$LOGFILE"
+{ cp configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
 
 #Load the service.
 
@@ -78,11 +78,13 @@ systemctl start user &>> "$LOGFILE"
 #We need to load the schema. To load schema we need to install mongodb client.
 #To have it installed we can setup MongoDB repo and install mongodb-client
 
-vim /etc/yum.repos.d/mongo.repo
+vim /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
 
 cp /configuration/mongo.repo /etc/yum.repos.d/mongo.repo  &>> "$LOGFILE"
 
 dnf install mongodb-org-shell -y  &>> "$LOGFILE"
 #Load Schema
 
-mongo --host mongo.pka.in.net </app/schema/user.js
+mongo --host mongo.pka.in.net </app/schema/user.js &>> "$LOGFILE"
+
+echo -e "$Y User Application installed successfully $N"
