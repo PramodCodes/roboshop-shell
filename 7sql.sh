@@ -37,7 +37,7 @@ ROOTCHECK &>>"$LOGFILE"
 dnf module disable mysql -y &>>"$LOGFILE"
 VALIDATE $? "Disable mysql"
 #Setup the MySQL5.7 repo file
-{ cp /root/roboshop-shell/configuration/myql.repo /etc/yum.repos.d/mysql.repo; } &>>"$LOGFILE"
+{ cp /root/roboshop-shell/configuration/mysql.repo /etc/yum.repos.d/mysql.repo; } &>>"$LOGFILE"
 VALIDATE $? "mysql repo setup"
 
 #Install MySQL Server
