@@ -73,7 +73,7 @@ VALIDATE $? "Downloading cart application"
 cd /app &>>"$LOGFILE"
 VALIDATE $? "Naviagting into app directory"
 
-unzip /tmp/cart.zip &>>"$LOGFILE"
+unzip -o /tmp/cart.zip &>>"$LOGFILE"
 VALIDATE $? "unzipping cart"
 
 # Every application is developed by development team will have some common softwares that they use as libraries. This application also have the same way of defined dependencies in the application configuration.
