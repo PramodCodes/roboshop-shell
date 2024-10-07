@@ -54,8 +54,13 @@ VALIDATE $? "Installing NodeJS"
 # Configure the application.
 # Add application User
 
-useradd roboshop &>>"$LOGFILE"
-VALIDATE $? "roboshop user creation"
+id roboshop #if roboshop user does not exist, then it is failure
+if [ $? -ne 0 ]; then
+    useradd roboshop
+    VALIDATE $? "roboshop user creation"
+else
+    echo -e "roboshop user already exist $Y SKIPPING $N"
+fi
 
 # Lets setup an app directory.
 mkdir /app &>>"$LOGFILE"
