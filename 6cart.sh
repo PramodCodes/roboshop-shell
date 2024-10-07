@@ -63,7 +63,7 @@ else
 fi
 
 # Lets setup an app directory.
-mkdir /app &>>"$LOGFILE"
+mkdir -p /app &>>"$LOGFILE"
 VALIDATE $? "app directory creation"
 
 # Download the application code to created app directory.
