@@ -42,43 +42,44 @@ ISROOT
 
 # install nginx
 
-dnf install nginx -y &>> "$LOGFILE"
+dnf install nginx -y &>>"$LOGFILE"
 
 VALIDATE $? "nginx installation"
 
 # Start & Enable Nginx service
 
-systemctl enable nginx &>> "$LOGFILE"
-systemctl start nginx &>> "$LOGFILE"
+systemctl enable nginx &>>"$LOGFILE"
+systemctl start nginx &>>"$LOGFILE"
 
 VALIDATE $? "nginx starting"
 
 # Remove the default content that web server is serving.
 
-rm -rf /usr/share/nginx/html/* &>> "$LOGFILE"
+rm -rf /usr/share/nginx/html/* &>>"$LOGFILE"
 
 VALIDATE $? "default content removal"
 
 # Download the frontend content
 
-curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>> "$LOGFILE"
+curl -o /tmp/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip &>>"$LOGFILE"
 
 VALIDATE $? "frontend content download"
 
 # Extract the frontend content.
-cd /usr/share/nginx/html &>> "$LOGFILE"
+cd /usr/share/nginx/html &>>"$LOGFILE"
 VALIDATE $? "navigation to html Content"
 
-unzip /tmp/web.zip &>> "$LOGFILE"
+unzip -o /tmp/web.zip &>>"$LOGFILE"
 VALIDATE $? "extraction of frontend Content"
 
 # Create Nginx Reverse Proxy Configuration.
 echo "Creating reverse proxy configuration"
 
-cp /configuration/roboshop.conf /etc/nginx/default.d/roboshop.conf &>> "$LOGFILE"
+cp /root/roboshop-shell/configuration/roboshop.conf /etc/nginx/default.d/roboshop.conf &>>"$LOGFILE"
 VALIDATE $? "Copying roboshop.conf file"
 
 # Restart Nginx Service to load the changes of the configuration.
-systemctl restart nginx &>> "$LOGFILE"
+systemctl restart nginx &>>"$LOGFILE"
+VALIDATE $? "restarting nginx service"
 
 echo -e "$Y [SUCCESS] Nginx has been successfully configured and restarted $N"
