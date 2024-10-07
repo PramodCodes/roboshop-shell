@@ -86,7 +86,7 @@ VALIDATE $? "Installing dependencies"
 # vim /etc/systemd/system/cart.service
 
 # Load the service.
-cp /configuration/cart.service /etc/systemd/system/cart.service &>>"$LOGFILE"
+cp /root/roboshop-shell/configuration/cart.service /etc/systemd/system/cart.service &>>"$LOGFILE"
 VALIDATE $? "Copying cart service file"
 
 systemctl daemon-reload &>>"$LOGFILE"
