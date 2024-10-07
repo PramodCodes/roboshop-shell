@@ -39,45 +39,45 @@ ISROOT
 
 # Install NodeJS, By default NodeJS 10 is available, We would like to enable 18 version and install list.
 # you can list modules by using dnf module list
-dnf module disable nodejs -y &>> "$LOGFILE"
+dnf module disable nodejs -y &>>"$LOGFILE"
 VALIDATE $? "Disabling current NodeJS"
 
-dnf module enable nodejs:18 -y &>> "$LOGFILE"
+dnf module enable nodejs:18 -y &>>"$LOGFILE"
 VALIDATE $? "Enabling NodeJS:18"
 
-Install NodeJS &>> "$LOGFILE"
-VALIDATE $? "Installing NodeJS:18"
+# Install NodeJS &>> "$LOGFILE"
+# VALIDATE $? "Installing NodeJS:18"
 
-dnf install nodejs -y &>> "$LOGFILE"
+dnf install nodejs -y &>>"$LOGFILE"
 VALIDATE $? "Installing NodeJS"
 
 # Configure the application.
 # Add application User
 
-useradd roboshop &>> "$LOGFILE"
+useradd roboshop &>>"$LOGFILE"
 VALIDATE $? "roboshop user creation"
 
 # Lets setup an app directory.
-mkdir /app &>> "$LOGFILE"
+mkdir /app &>>"$LOGFILE"
 VALIDATE $? "app directory creation"
 
 # Download the application code to created app directory.
-curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>> "$LOGFILE"
+curl -L -o /tmp/cart.zip https://roboshop-builds.s3.amazonaws.com/cart.zip &>>"$LOGFILE"
 VALIDATE $? "Downloading cart application"
 
-cd /app &>> "$LOGFILE"
+cd /app &>>"$LOGFILE"
 VALIDATE $? "Naviagting into app directory"
 
-unzip /tmp/cart.zip &>> "$LOGFILE"
+unzip /tmp/cart.zip &>>"$LOGFILE"
 VALIDATE $? "unzipping cart"
 
 # Every application is developed by development team will have some common softwares that they use as libraries. This application also have the same way of defined dependencies in the application configuration.
 # Lets download the dependencies.
 
-cd /app &>> "$LOGFILE"
+cd /app &>>"$LOGFILE"
 VALIDATE $? "Naviagting into app directory"
 
-npm install &>> "$LOGFILE"
+npm install &>>"$LOGFILE"
 VALIDATE $? "Installing dependencies"
 
 # We need to setup a new service in systemd so systemctl can manage this service
@@ -86,16 +86,16 @@ VALIDATE $? "Installing dependencies"
 # vim /etc/systemd/system/cart.service
 
 # Load the service.
-cp /configuration/cart.service /etc/systemd/system/cart.service &>> "$LOGFILE"
+cp /configuration/cart.service /etc/systemd/system/cart.service &>>"$LOGFILE"
 VALIDATE $? "Copying cart service file"
 
-systemctl daemon-reload &>> "$LOGFILE"
+systemctl daemon-reload &>>"$LOGFILE"
 VALIDATE $? "cart daemon reload"
 
-systemctl enable cart &>> "$LOGFILE"
+systemctl enable cart &>>"$LOGFILE"
 VALIDATE $? "Enable cart"
 
-systemctl start cart &>> "$LOGFILE"
+systemctl start cart &>>"$LOGFILE"
 VALIDATE $? "Starting cart"
 
 echo -e "$Y Cart Application installed successfully $N"
