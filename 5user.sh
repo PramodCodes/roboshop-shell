@@ -73,9 +73,10 @@ npm install &>> "$LOGFILE"
 
 #Setup SystemD User Service
 #vim /etc/systemd/system/user.service
-
+pwd &>> "$LOGFILE"
+cd roboshop-shll &>> "$LOGFILE"
 { cp configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
-
+#     configuration/user.service
 #Load the service.
 
 systemctl daemon-reload &>> "$LOGFILE"
