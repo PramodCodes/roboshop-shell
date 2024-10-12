@@ -112,8 +112,9 @@ VALIDATE $? "Starting user"
 #To have it installed we can setup MongoDB repo and install mongodb-client
 
 #vim /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
+cd ~/roboshop-shell &>> "$LOGFILE"
 
-{ cp /home/centos/roboshop-shell//configuration/mongo.repo /etc/yum.repos.d/mongo.repo; } &>> "$LOGFILE"
+{ cp /configuration/mongo.repo /etc/yum.repos.d/mongo.repo; } &>> "$LOGFILE"
 VALIDATE $? "copying mongodb repo"
 
 dnf install mongodb-org-shell -y  &>> "$LOGFILE"
