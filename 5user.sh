@@ -79,7 +79,7 @@ systemctl start user &>> "$LOGFILE"
 #We need to load the schema. To load schema we need to install mongodb client.
 #To have it installed we can setup MongoDB repo and install mongodb-client
 
-vim /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
+#vim /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
 
 cp /configuration/mongo.repo /etc/yum.repos.d/mongo.repo  &>> "$LOGFILE"
 
