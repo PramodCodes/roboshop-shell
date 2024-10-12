@@ -114,7 +114,7 @@ VALIDATE $? "Starting user"
 #vim /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
 cd ~/roboshop-shell &>> "$LOGFILE"
 
-{ cp /configuration/mongo.repo /etc/yum.repos.d/mongo.repo; } &>> "$LOGFILE"
+{ cp configuration/mongo.repo /etc/yum.repos.d/mongo.repo; } &>> "$LOGFILE"
 VALIDATE $? "copying mongodb repo"
 
 dnf install mongodb-org-shell -y  &>> "$LOGFILE"
