@@ -56,32 +56,53 @@ else
 fi
 
 #Lets setup an app directory.
-mkdir /app &>> "$LOGFILE"
+mkdir -p /app &>> "$LOGFILE"
+VALIDATE $? "app directory creation"
 
 #Download the application code to created app directory.
 
 curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>> "$LOGFILE"
+VALIDATE $? "download the user zip"
+
 cd /app &>> "$LOGFILE"
+VALIDATE $? "create app dir"
+
 unzip -o /tmp/user.zip &>> "$LOGFILE" # this command will replace files if already partially unzipped
+VALIDATE $? "extract the zip"
+
 #Every application is developed by development team will have some common softwares that they use as libraries. This application also have the same way of defined dependencies in the application configuration.
 
 #Lets download the dependencies.
 
-cd /app &>> "$LOGFILE"
 npm install &>> "$LOGFILE"
+VALIDATE $? "Installing dependencies"
+
 #We need to setup a new service in systemd so systemctl can manage this service
 
 #Setup SystemD User Service
 #vim /etc/systemd/system/user.service
 pwd &>> "$LOGFILE"
-cd roboshop-shll &>> "$LOGFILE"
+
+cd roboshop-shell &>> "$LOGFILE"
+VALIDATE $? "navigating into roboshop"
+
 { cp configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
+
+VALIDATE $? "Copying user service file"
+
 #     configuration/user.service
 #Load the service.
 
-systemctl daemon-reload &>> "$LOGFILE"
-systemctl enable user &>> "$LOGFILE"
-systemctl start user &>> "$LOGFILE"
+systemctl daemon-reload &>> $LOGFILE
+
+VALIDATE $? "user daemon reload"
+
+systemctl enable user &>> $LOGFILE
+
+VALIDATE $? "Enable user"
+
+systemctl start user &>> $LOGFILE
+VALIDATE $? "Starting user"
 
 
 #For the application to work fully functional we need to load schema to the Database. Then
@@ -92,10 +113,14 @@ systemctl start user &>> "$LOGFILE"
 #vim /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
 
 { cp /configuration/mongo.repo /etc/yum.repos.d/mongo.repo; } &>> "$LOGFILE"
+VALIDATE $? "copying mongodb repo"
 
 dnf install mongodb-org-shell -y  &>> "$LOGFILE"
+VALIDATE $? "Installing MongoDB client"
+
 #Load Schema
 
 mongo --host mongodb.pka.in.net </app/schema/user.js &>> "$LOGFILE"
+VALIDATE $? "Loading user data into MongoDB"
 
 echo -e "$Y User Application installed successfully $N"
