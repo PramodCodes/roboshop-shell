@@ -165,3 +165,26 @@ The set command is a powerful tool for customizing the shell environment and con
 It's important to use the set command carefully, as it can have significant effects on your script's execution.
 For more advanced usage, refer to the Bash manual or online resources.
 By understanding and effectively using the set command, you can enhance the flexibility and control of your Bash scripts.
+
+
+
+servers list
+
+01-web.MD`
+
+02-mongodb.MD`
+
+03-catalogue.MD1
+
+04-redis.MD`
+
+05-user.MD
+
+06-cart.MD
+
+07-mysql.MD
+08-shipping.MD
+09-rabbitmq.MD
+10-payment.MD
+11-dispatch.MD
+cart catalouge mongo redis user web

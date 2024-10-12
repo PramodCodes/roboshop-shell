@@ -11,7 +11,7 @@ N="\e[0m"
 
 # enabling debugging
 set -x # command tracing
-set -e #  exit on error
+#set -e #  exit on error
 #check for root
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE=/tmp/$0-"$TIMESTAMP".log
