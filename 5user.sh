@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 #User
 #User is a microservice that is responsible for User Logins and Registrations Service in RobotShop e-commerce portal.
 #Developer has chosen NodeJs, Check with developer which version of NodeJS is needed. Developer has set a context that it can work with NodeJS >18
@@ -85,6 +86,6 @@ cp /configuration/mongo.repo /etc/yum.repos.d/mongo.repo  &>> "$LOGFILE"
 dnf install mongodb-org-shell -y  &>> "$LOGFILE"
 #Load Schema
 
-mongo --host mongo.pka.in.net </app/schema/user.js &>> "$LOGFILE"
+mongo --host mongodb.pka.in.net </app/schema/user.js &>> "$LOGFILE"
 
 echo -e "$Y User Application installed successfully $N"
