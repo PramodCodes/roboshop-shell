@@ -66,7 +66,7 @@ VALIDATE $? "Downloading shipping catalogue file"
 cd /app &>>"$LOGFILE"
 VALIDATE $? "Navigation to app directory "
 
-unzip /tmp/shipping.zip &>>"$LOGFILE"
+unzip -o /tmp/shipping.zip &>>"$LOGFILE"
 VALIDATE $? "Inflating shipping archive"
 #Every application is developed by development team will have some common software that they use as libraries. This application also have the same way of defined dependencies in the application configuration.
 #Lets download the dependencies & build the application
