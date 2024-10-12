@@ -86,7 +86,8 @@ pwd &>> "$LOGFILE"
 cd roboshop-shell &>> "$LOGFILE"
 VALIDATE $? "navigating into roboshop"
 
-{ cp configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
+#{ cp configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
+{ cp /home/centos/roboshop-shell/configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
 
 VALIDATE $? "Copying user service file"
 
@@ -112,7 +113,7 @@ VALIDATE $? "Starting user"
 
 #vim /etc/yum.repos.d/mongo.repo &>> "$LOGFILE"
 
-{ cp /configuration/mongo.repo /etc/yum.repos.d/mongo.repo; } &>> "$LOGFILE"
+{ cp /home/centos/roboshop-shell//configuration/mongo.repo /etc/yum.repos.d/mongo.repo; } &>> "$LOGFILE"
 VALIDATE $? "copying mongodb repo"
 
 dnf install mongodb-org-shell -y  &>> "$LOGFILE"
