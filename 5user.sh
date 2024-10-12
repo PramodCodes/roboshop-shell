@@ -35,7 +35,7 @@ VALIDATE(){
         echo -e "$2 ... $G SUCCESS $N" &>> "$LOGFILE"
     fi
 }
-
+ISROOT
 dnf module disable nodejs -y &>> "$LOGFILE"
 VALIDATE $? "disable node nodejs"
 dnf module enable nodejs:18 -y &>> "$LOGFILE"
