@@ -46,7 +46,7 @@ VALIDATE $? " adding user roboshop "
 
 #Lets setup an app directory.
 
-mkdir /app &>>"$LOGFILE"
+mkdir -p /app &>>"$LOGFILE" # -p create if not exist
 VALIDATE $? " creation of app directory"
 #Download the application code to created app directory.
 
@@ -73,7 +73,7 @@ VALIDATE $? "Moving jar file to target directory "
 #We need to setup a new service in systemd so systemctl can manage this service
 #Setup SystemD Shipping Service
 
-/etc/systemd/system/shipping.service
+#/etc/systemd/system/shipping.service
 { cp /root/roboshop-shell/configuration/shipping.service /etc/systemd/system/shipping.service; } &>>"$LOGFILE"
 VALIDATE $? "Creating shipping service configuration by moving the file from configuration directory "
 
@@ -95,7 +95,7 @@ dnf install mysql -y &>>"$LOGFILE"
 VALIDATE $? "Install mysql client "
 #Load Schema
 
-mysql -h mysql.pka.in.net -uroot -pRoboShop@1 </app/schema/shipping.sql &>>"$LOGFILE"
+mysql -h mysql.pka.in.net -uroot -pRoboShop@1 < /app/schema/shipping.sql &>>"$LOGFILE"
 VALIDATE $? "Connecting with mysql server "
 #This service needs a restart because it is dependent on schema, After loading schema only it will work as expected, Hence we are restarting this service. This
 
