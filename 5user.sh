@@ -53,7 +53,7 @@ mkdir /app &>> "$LOGFILE"
 
 curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip &>> "$LOGFILE"
 cd /app &>> "$LOGFILE"
-unzip /tmp/user.zip &>> "$LOGFILE"
+unzip -o /tmp/user.zip &>> "$LOGFILE" # this command will replace files if already partially unzipped
 #Every application is developed by development team will have some common softwares that they use as libraries. This application also have the same way of defined dependencies in the application configuration.
 
 #Lets download the dependencies.
