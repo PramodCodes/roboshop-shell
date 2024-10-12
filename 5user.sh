@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+set -x
 #User
 #User is a microservice that is responsible for User Logins and Registrations Service in RobotShop e-commerce portal.
 #Developer has chosen NodeJs, Check with developer which version of NodeJS is needed. Developer has set a context that it can work with NodeJS >18
