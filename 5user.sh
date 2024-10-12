@@ -83,11 +83,11 @@ VALIDATE $? "Installing dependencies"
 #vim /etc/systemd/system/user.service
 pwd &>> "$LOGFILE"
 
-cd roboshop-shell &>> "$LOGFILE"
+cd ~/roboshop-shell &>> "$LOGFILE"
 VALIDATE $? "navigating into roboshop"
 
-#{ cp configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
-{ cp /home/centos/roboshop-shell/configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
+{ cp configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
+#{ cp /home/centos/roboshop-shell/configuration/user.service /etc/systemd/system/user.service; } &>> "$LOGFILE"
 
 VALIDATE $? "Copying user service file"
 
