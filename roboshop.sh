@@ -23,7 +23,12 @@ echo -e "current instance is $i"
   fi
     echo -e "$i - $INSTANCE_TYPE"
 
-  aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv \
-  --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4
+#  aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4
+#the above command wont add the name to the server so lets modify it
+
+
+aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4 \
+--tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=test}]' 'ResourceType=volume,Tags=[{Key=Name,Value=$i}]"
+
 done
 
