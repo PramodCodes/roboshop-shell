@@ -16,7 +16,11 @@ INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipp
 for i in "${INSTANCES[@]}"
 do
 echo -e "current instance is $i"
-
-
+  if [ $i == "mongodb" ] || [ $i == "shipping" ] || [ $i == "mysql" ] ; then
+    INSTANCE_TYPE="t3.small"
+  else
+    INSTANCE_TYPE="t3.micro"
+  fi
+    echo -e "$i setting instance type $INSTANCE_TYPE"
 done
 
