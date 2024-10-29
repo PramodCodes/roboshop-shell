@@ -46,21 +46,21 @@ PRIVATE_IP=$(aws ec2 run-instances --image-id $AMI --count 1 --instance-type $IN
 
 aws route53 change-resource-record-sets \
   --hosted-zone-id $ZONE_ID \
-  --change-batch "
+  --change-batch '
   {
-    "Comment": "creating a record set",
+    "Comment": "creating a record set '$i'",
     "Changes": [{
       "Action"              : "CREATE",
       "ResourceRecordSet"  : {
-          "Name"              : "$i.$DOMAIN_NAME",
+          "Name"              : "'$i'.'$DOMAIN_NAME'",
           "Type"             : "A",
           "TTL"              : 1,
           "ResourceRecords"  : [{
-              "Value"         : "$PRIVATE_IP"
+              "Value"         : "'$PRIVATE_IP'"
         }]
       }
     }]
   }
-  "
+  '
 
 done
