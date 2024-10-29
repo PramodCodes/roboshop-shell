@@ -30,7 +30,7 @@ echo -e "current instance is $i"
 #aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4 --tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=test},{Key=Name,Value=$i}]"
 #you need to get ip address of created instance to create a record in route 53 we use query for it
 aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4 \
---tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=test},{Key=Name,Value=$i}]" --query 'Reservations[*].Instances[*].PublicIpAddress' --output text
+--tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=test},{Key=Name,Value=$i}]" --query 'Instances[*].PrivateIpAddress' --output text
 
 # once the instance is created we need to get private ip address of created instance to create a route53 record
 done
