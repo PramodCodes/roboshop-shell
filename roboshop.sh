@@ -4,7 +4,10 @@
 
 AMI=ami-0b4f379183e5706b9
 SG_ID=sg-0637a74bfefa45c31
-
+ENV=test
+ZONE_ID=Z056232231439EYIBQD0B
+DOMAIN_NAME=pka.in.net
+PRIVATE_IP=0.0.0.0
 # you need to create multiple instances with different types
 # mongodb, mysql, shipping we are creating t3.small remaining t2.micro
 # creating route53 records, web public ip remaining private ip
@@ -29,9 +32,35 @@ echo -e "current instance is $i"
 
 #aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4 --tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=test},{Key=Name,Value=$i}]"
 #you need to get ip address of created instance to create a record in route 53 we use query for it
-aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4 \
---tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=test},{Key=Name,Value=$i}]" --query 'Instances[*].PrivateIpAddress' --output text
+#aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4 \
+#--tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=$ENV},{Key=Name,Value=$i}]" --query 'Instances[*].PrivateIpAddress' --output text
+#save the ip address in variable
+PRIVATE_IP=(aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4 --tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=$ENV},{Key=Name,Value=$i}]" --query 'Instances[*].PrivateIpAddress' --output text)
+  echo -e "$i - $INSTANCE_TYPE - $PRIVATE_IP"
 
 # once the instance is created we need to get private ip address of created instance to create a route53 record
-done
+#CREATE r53 and make sure delete existing records
 
+
+# Creates route 53 records based on env name
+
+aws route53 change-resource-record-sets \
+  --hosted-zone-id $ZONE_ID \
+  --change-batch '
+  {
+    "Comment": "creating a record set for i"
+    ,"Changes": [{
+      "Action"              : "CREATE"
+      ,"ResourceRecordSet"  : {
+        "Name"              : $i.$DOMAIN_NAME
+        ,"Type"             : "CNAME"
+        ,"TTL"              : 120
+        ,"ResourceRecords"  : [{
+            "Value"         : "'" $DNS "'"
+        }]
+      }
+    }]
+  }
+  '
+
+done
