@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -xe
 # you will need global variables to access through out the script which are AMI ,SG
 
 AMI=ami-0b4f379183e5706b9
