@@ -52,7 +52,7 @@ aws route53 change-resource-record-sets \
     ,"Changes": [{
       "Action"              : "CREATE"
       ,"ResourceRecordSet"  : {
-          "Name"              : $i.$DOMAIN_NAME
+          "Name"              : "{$i}.{$DOMAIN_NAME}"
           ,"Type"             : "A"
           ,"TTL"              : 1
           ,"ResourceRecords"  : [{
