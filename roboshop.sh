@@ -48,7 +48,7 @@ aws route53 change-resource-record-sets \
   --hosted-zone-id $ZONE_ID \
   --change-batch '
   {
-    "Comment": "creating a record set for $i"
+    "Comment": "creating a record set for {$i}"
     ,"Changes": [{
       "Action"              : "CREATE"
       ,"ResourceRecordSet"  : {
@@ -56,7 +56,7 @@ aws route53 change-resource-record-sets \
           ,"Type"             : "A"
           ,"TTL"              : 1
           ,"ResourceRecords"  : [{
-              "Value"         : "$PRIVATE_IP"
+              "Value"         : "{$PRIVATE_IP}"
         }]
       }
     }]
