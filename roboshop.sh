@@ -48,7 +48,7 @@ aws route53 change-resource-record-sets \
   --hosted-zone-id $ZONE_ID \
   --change-batch "
   {
-    "Comment": "creating a record set for $i",
+    "Comment": "creating a record set",
     "Changes": [{
       "Action"              : "CREATE",
       "ResourceRecordSet"  : {
