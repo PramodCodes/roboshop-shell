@@ -28,7 +28,7 @@ echo -e "current instance is $i"
 
 
 aws ec2 run-instances --image-id $AMI --count 1 --instance-type $INSTANCE_TYPE --key-name nv --security-group-ids $SG_ID --subnet-id subnet-08552b8a3fc9570b4 \
---tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=test}], ResourceType=volume,Tags=[{Key=Name,Value=$i}]"
+--tag-specifications "ResourceType=instance,Tags=[{Key=env,Value=test}]" --tag-specifications "ResourceType=volume,Tags=[{Key=Name,Value=$i}]"
 
 done
 
