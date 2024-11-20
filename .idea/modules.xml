@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../ansible/.idea/ansible.iml" filepath="$PROJECT_DIR$/../ansible/.idea/ansible.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/roboshop-shell.iml" filepath="$PROJECT_DIR$/.idea/roboshop-shell.iml" />
     </modules>
   </component>
