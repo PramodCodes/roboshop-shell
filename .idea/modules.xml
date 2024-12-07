@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../ansible/.idea/ansible.iml" filepath="$PROJECT_DIR$/../ansible/.idea/ansible.iml" />
       <module fileurl="file://$PROJECT_DIR$/../roboshop-ansible/.idea/roboshop-ansible.iml" filepath="$PROJECT_DIR$/../roboshop-ansible/.idea/roboshop-ansible.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../roboshop-ansible-roles/.idea/roboshop-ansible-roles.iml" filepath="$PROJECT_DIR$/../roboshop-ansible-roles/.idea/roboshop-ansible-roles.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/roboshop-shell.iml" filepath="$PROJECT_DIR$/.idea/roboshop-shell.iml" />
     </modules>
   </component>
